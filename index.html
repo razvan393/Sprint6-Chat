@@ -12,9 +12,10 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<div class="container-main ">
     <div ng-controller="LoginCtrl">
-
+        <div id="fb-root"></div>
+        <div class="fb-login-button" data-max-rows="4" data-size="xlarge" data-show-faces="false" data-auto-logout-link="true"></div>
+        <div class="container-main ">
     </div>
     <div ng-controller="ChatCtrl">
         <div ng-controller="ParticipantsCtrl">
@@ -39,6 +40,7 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.1/moment.min.js"></script>
 <script src="js/moments.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.5/angular.min.js"></script>
+<script src="js/fb-login.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>
