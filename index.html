@@ -9,10 +9,30 @@
     <meta http-equiv="cleartype" content="on">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/bootstrap-datetimepicker.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<div class="container-main ">
+    <div ng-controller="LoginCtrl">
+
+    </div>
+    <div ng-controller="ChatCtrl">
+        <div ng-controller="ParticipantsCtrl">
+            <span ng-repeat=" participant in participants"></span>
+        </div>
+        <div>
+            <ul>
+                <li ng-repeat="message in messages"></li>
+            </ul>
+        </div>
+        <div ng-controller="FormCtrl">
+            <form class="form-horizontal" ng-controller="FormCtrl" ng-submit="submit()">
+                <input type="text" class="form-control" id="message" ng-model="form.body">
+                <button type="submit" class="btn btn-primary">&#8629</button>
+            </form>
+        </div>
+    </div>
+</div>
 
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
