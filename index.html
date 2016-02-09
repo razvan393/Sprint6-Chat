@@ -12,18 +12,25 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<div class="container-main ">
+<div class="container-main"  ng-controller="IndexCtrl">
     <div ng-controller="LoginCtrl">
 
     </div>
-    <div ng-controller="ChatCtrl">
+    <div>
         <div ng-controller="ParticipantsCtrl">
-            <span ng-repeat=" participant in participants"></span>
+            <span ng-repeat=" participant in participants">{{ participant.first_name }} {{ participant.last_name }}</span>
         </div>
         <div>
-            <ul>
-                <li ng-repeat="message in messages"></li>
-            </ul>
+            <table>
+                <tbody>
+                <tr ng-repeat="message in messages">
+                    <td ng-model="message.body">{{ message.body }}</td>
+                </tr>
+                </tbody>
+            </table>
+            <!--<ul>
+                <li ng-repeat="message in messages" ng-model="message.body">{{ message.body }}</li>
+            </ul>-->
         </div>
         <div ng-controller="FormCtrl">
             <form class="form-horizontal" ng-controller="FormCtrl" ng-submit="submit()">
