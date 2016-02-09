@@ -1,18 +1,26 @@
 (function () {
     var app = angular.module('app', []);
 
-    app.controller('LoginCtrl', function ($scope) {
-        $scope.participants=[];
+    var user = [{
+        "first_name": "Ionut",
+        "last_name": "Firatoiu",
+        "fb_id": 1234567890
+    }];
 
+    app.controller('LoginCtrl', function ($scope, $rootScope) {
+
+
+        /*$scope.$watch('user', function() {
+            $rootScope.$broadcast('User', $scope.user);
+        });*/
     });
 
-    app.controller('ChatCtrl', function ($scope) {
+    app.controller('IndexCtrl', function ($scope) {
         $scope.messages = [];
-
-
     });
 
     app.controller('ParticipantsCtrl', function ($scope) {
+        $scope.participants = user;
 
     });
 
@@ -27,7 +35,10 @@
                 $scope.form = angular.copy($scope.default);
             };
 
+            console.log($scope.messages.body);
+            console.log($scope.messages);
             /*TransactionStore.add($scope.form);*/
+            $scope.messages.push($scope.form);
             $scope.reset();
         };
     });
@@ -100,7 +111,7 @@
                 });
             };
 
-            var addMessage = function (id,message) {
+            var addMessage = function (id, message) {
                 return $q(function (resolve, reject) {
                     $http({
                         url: URL + '/' + id,
