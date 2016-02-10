@@ -7,7 +7,7 @@
         "fb_id": '1234567890'
     }];
 
-    app.controller('LoginCtrl', function ($scope, $rootScope,ParticipantsStore) {
+    app.controller('LoginCtrl', function ($scope, $rootScope, $cookieStore, ParticipantsStore) {
         $scope.FBLogin = function () {
             FB.login(function(response) {
                 if (response.authResponse) {
@@ -19,7 +19,9 @@
                             fb_id:response.id
                         };
                         $scope.$apply (function(){
-                            ParticipantsStore.addParticipant(user).then(function(){console.log('weee',user)})
+                            ParticipantsStore.addParticipant(user).then(function(data){
+                                $cookieStore.put('ParticipantId', data.id);
+                            });
                         });
                         console.log('Good to see you, ' + response.name + '.');
                         var accessToken = FB.getAuthResponse().accessToken;
