@@ -20,7 +20,7 @@ table {
 td {
     padding: 10px;
     float: left;
-    background: #d8e8a9;
+    background: #bdf5f9;
     border-radius: 15%;
     margin:10px;
 }
@@ -73,7 +73,7 @@ form {
 }
 
 .head {
-    background: #bcf0fb;
+    background: #669cff;
     height: 30px;
 }
 

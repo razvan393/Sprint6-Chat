@@ -13,7 +13,7 @@
 </head>
 <body>
 <div class="container-main parent" ng-controller="IndexCtrl">
-    <div class="wrapper container">
+    <div class="wrapper container"  >
         <div class="head" ng-controller="ParticipantsCtrl">
             <span ng-repeat=" user in active track by id ">{{ user.first_name }} {{ user.last_name }}</span>
         </div>
@@ -41,11 +41,11 @@
     </div>
 </div>
 <div class="right fb-button" ng-controller="IndexCtrl">
-    <div ng-controller="LoginCtrl">
+    <div ng-controller="LoginCtrl" >
         <!--<div id="fb-root"></div>-->
         <!--<div id="status">-->
-            <!--<div scope="public_profile,email" onlogin="checkLoginState();" class="fb-login-button" data-max-rows="4"-->
-                 <!--data-size="xlarge" data-show-faces="false" data-auto-logout-link="false"></div>-->
+        <!--<div scope="public_profile,email" onlogin="checkLoginState();" class="fb-login-button" data-max-rows="4"-->
+        <!--data-size="xlarge" data-show-faces="false" data-auto-logout-link="false"></div>-->
         <!--</div>-->
         <button class="btn btn-primary" ng-click="FBLogin()">FB Login</button>
         <div class="container-main ">
