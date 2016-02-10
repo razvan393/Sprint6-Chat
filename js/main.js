@@ -21,7 +21,6 @@
 
     app.controller('ParticipantsCtrl', function ($scope) {
         $scope.participants = user;
-
     });
 
     app.controller('FormCtrl', function ($scope) {
@@ -42,7 +41,6 @@
             $scope.reset();
         };
     });
-
 
     //create services
     app.factory('ParticipantsStore', function ($http, $q) {
@@ -90,7 +88,7 @@
                 getParticipants: getParticipants,
                 addParticipant: addParticipant
             };
-        });
+        })();
     });
 
     app.factory('MessagesStore', function ($http, $q) {
@@ -138,6 +136,6 @@
                 getMessages: getMessages,
                 addMessage: addMessage
             };
-        });
+        })();
     });
 })();
