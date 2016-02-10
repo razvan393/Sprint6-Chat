@@ -1,18 +1,40 @@
 (function () {
-    var app = angular.module('app', []);
+    var app = angular.module('app', ['ngCookies']);
 
     var user = [{
         "first_name": "Ionut",
         "last_name": "Firatoiu",
-        "fb_id": 1234567890
+        "fb_id": '1234567890'
     }];
 
-    app.controller('LoginCtrl', function ($scope, $rootScope) {
-
+    app.controller('LoginCtrl', function ($scope, $rootScope, $cookieStore, ParticipantsStore) {
+        $scope.FBLogin = function () {
+            FB.login(function(response) {
+                if (response.authResponse) {
+                    console.log('Welcome!  Fetching your information.... ');
+                    FB.api('/me', function(response) {
+                        user = {
+                            first_name:response.name.split(" ")[0],
+                            last_name:response.name.split(" ")[1],
+                            fb_id:response.id
+                        };
+                        $scope.$apply (function(){
+                            ParticipantsStore.addParticipant(user).then(function(data){
+                                $cookieStore.put('ParticipantId', data.id);
+                            });
+                        });
+                        console.log('Good to see you, ' + response.name + '.');
+                        var accessToken = FB.getAuthResponse().accessToken;
+                    });
+                } else {
+                    console.log('User cancelled login or did not fully authorize.');
+                }
+            });
+        };
 
         /*$scope.$watch('user', function() {
-         $rootScope.$broadcast('User', $scope.user);
-         });*/
+            $rootScope.$broadcast('User', $scope.user);
+        });*/
     });
 
     app.controller('IndexCtrl', function ($scope) {
@@ -90,7 +112,7 @@
                 getParticipants: getParticipants,
                 addParticipant: addParticipant
             };
-        });
+        })();
     });
 
     app.factory('MessagesStore', function ($http, $q) {
@@ -140,4 +162,21 @@
             };
         });
     });
+//    ------------------FACEBOOK API INIT------------------//
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '1533557483610625',
+            xfbml      : true,
+            version    : 'v2.5'
+        });
+    };
+
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+        console.log('FB init');
+    }(document, 'script', 'facebook-jssdk'));
 })();
