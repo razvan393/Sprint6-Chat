@@ -1,5 +1,5 @@
 (function () {
-    var app = angular.module('app', []);
+    var app = angular.module('app', ['ngCookies']);
 
     var user = [{
         "first_name": "Ionut",
