@@ -11,17 +11,18 @@
         $scope.FBLogin = function () {
             FB.login(function(response) {
                 if (response.authResponse) {
-
-                    console.log('TOT RASPUNSUL',response);
                     console.log('Welcome!  Fetching your information.... ');
                     FB.api('/me', function(response) {
+                        user = {
+                            first_name:response.name.split(" ")[0],
+                            last_name:response.name.split(" ")[1],
+                            fb_id:response.id
+                        };
+                        $scope.$apply (function(){
+                            ParticipantsStore.addParticipant(user).then(function(){console.log('weee',user)})
+                        });
                         console.log('Good to see you, ' + response.name + '.');
                         var accessToken = FB.getAuthResponse().accessToken;
-
-                        console.log('TOT RASPUNSUL',response);
-                        console.log('ID',response.id);
-                        console.log('NUMELE',response.name);
-                        console.log('TOKEN',accessToken);
                     });
                 } else {
                     console.log('User cancelled login or did not fully authorize.');
@@ -109,7 +110,7 @@
                 getParticipants: getParticipants,
                 addParticipant: addParticipant
             };
-        });
+        })();
     });
 
     app.factory('MessagesStore', function ($http, $q) {
