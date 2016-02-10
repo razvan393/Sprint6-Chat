@@ -2,34 +2,8 @@ html, body {
     height: 100%;
 }
 
-.container-main {
-    width: 50%;
-    height: 100%;
-    margin: 0 auto;
-    position: relative;
-}
-
-.page-header {
-    text-align: center;
-    margin-bottom: 50px;
-}
-
 h1 {
     font-size: 46px;
-}
-
-.table-container {
-    max-height: 50%;
-    overflow: auto;
-    margin: 20px 0;
-}
-
-tr.red td {
-    background-color: #ffe5e5;
-}
-
-tr.green td {
-    background-color: #e5ffe5;
 }
 
 nav {
@@ -39,21 +13,97 @@ nav {
     text-align: center;
 }
 
+table {
+    width: 100%;
+}
+
+td {
+    padding: 10px;
+    float: left;
+    background: #d8e8a9;
+    border-radius: 15%;
+    margin:10px;
+}
+form {
+    position: absolute;
+    bottom: 2%;
+    width: 100%;
+    margin-left: 35px;
+}
+
+/*================================= custom classes =============================*/
+
+.container-main {
+    width: 50%;
+    height: 100%;
+    margin: 0 auto;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    position: relative;
+    background-color: #f9c1bd;
+}
+
+.page-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.table-container {
+    max-height: 50%;
+    overflow: auto;
+    margin: 20px 0;
+}
+
 .input-group.date {
     padding-left: 15px;
     padding-right: 15px;
+}
+
+.btn {
+    margin: 5px;
+}
+
+.wrapper {
+    border: 1px solid #ffc966;
+    background-color: #ffedcc;
+    width: 90%;
+    height: 90%;
+    overflow: auto;
+    padding: 0;
+}
+
+.head {
+    background: #bcf0fb;
+    height: 30px;
+}
+
+.fb-button {
+    position: absolute;
+    right: 5%;
+    bottom: -10%;
+}
+.move {
+    position: absolute;
+    transform: translateY(-25%);
+}
+/*====================================== Utility classes ============================*/
+
+.right {
+    float: right;
 }
 
 .align-center {
     text-align: center;
 }
 
-.right {
-    float: right;
+.parent {
+    position:relative;
 }
+
+/*==================================== Medias ==============================*/
 
 @media only screen and (max-width: 800px) {
     .container-main {
-        width: 100%;
+        width: 90%;
     }
 }

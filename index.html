@@ -12,13 +12,9 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<div class="container-main"  ng-controller="IndexCtrl">
-    <div ng-controller="LoginCtrl">
-        <div id="fb-root"></div>
-        <div class="fb-login-button" data-max-rows="4" data-size="xlarge" data-show-faces="false" data-auto-logout-link="true"></div>
-    </div>
-    <div>
-        <div ng-controller="ParticipantsCtrl">
+<div class="container-main parent" ng-controller="IndexCtrl">
+    <div class="wrapper container">
+        <div class="head" ng-controller="ParticipantsCtrl">
             <span ng-repeat=" participant in participants">{{ participant.first_name }} {{ participant.last_name }}</span>
         </div>
         <div>
@@ -33,15 +29,28 @@
                 <li ng-repeat="message in messages" ng-model="message.body">{{ message.body }}</li>
             </ul>-->
         </div>
-        <div ng-controller="FormCtrl">
-            <form class="form-horizontal" ng-controller="FormCtrl" ng-submit="submit()">
-                <input type="text" class="form-control" id="message" ng-model="form.body">
-                <button type="submit" class="btn btn-primary">&#8629</button>
-            </form>
+    </div>
+    <div ng-controller="FormCtrl">
+        <form class="form-horizontal" ng-controller="FormCtrl" ng-submit="submit()">
+            <div class="clearfix parent">
+                <input class="col-md-8" type="text" class="form-control" id="message" ng-model="form.body">
+                <button type="submit" class="btn btn-primary col-md-2 col-offset-2 move">&#8629</button>
+            </div>
+            <div class="clearfix"></div>
+        </form>
+    </div>
+</div>
+<div class="right fb-button" ng-controller="IndexCtrl">
+    <div ng-controller="LoginCtrl">
+        <div id="fb-root"></div>
+        <div id="status">
+            <div scope="public_profile,email" onlogin="checkLoginState();" class="fb-login-button" data-max-rows="4"
+                 data-size="xlarge" data-show-faces="false" data-auto-logout-link="false"></div>
+        </div>
+        <div class="container-main ">
         </div>
     </div>
 </div>
-
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.1/moment.min.js"></script>
