@@ -39,7 +39,6 @@
                    $scope.active.push(item);
                });
             });
-            console.log($scope.active);
 
             return $scope.active;
         });
@@ -56,7 +55,9 @@
                 $scope.form = angular.copy($scope.default);
             };
 
-            /*TransactionStore.add($scope.form);*/
+            console.log($scope.parent.data.id);
+
+            MessagesStore.addMessage($scope.form);
             $scope.messages.push($scope.form);
             $scope.reset();
         };
@@ -157,7 +158,7 @@
                 getMessages: getMessages,
                 addMessage: addMessage
             };
-        });
+        })();
     });
 //    ------------------FACEBOOK API INIT------------------//
     window.fbAsyncInit = function() {
