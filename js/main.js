@@ -41,6 +41,7 @@
 
     app.controller('ParticipantsCtrl', function ($scope) {
         $scope.participants = user;
+
     });
 
     app.controller('FormCtrl', function ($scope) {
@@ -61,6 +62,7 @@
             $scope.reset();
         };
     });
+
 
     //create services
     app.factory('ParticipantsStore', function ($http, $q) {
@@ -156,7 +158,7 @@
                 getMessages: getMessages,
                 addMessage: addMessage
             };
-        })();
+        });
     });
 //    ------------------FACEBOOK API INIT------------------//
     window.fbAsyncInit = function() {
