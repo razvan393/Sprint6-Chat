@@ -4,11 +4,30 @@
     var user = [{
         "first_name": "Ionut",
         "last_name": "Firatoiu",
-        "fb_id": 1234567890
+        "fb_id": '1234567890'
     }];
 
-    app.controller('LoginCtrl', function ($scope, $rootScope) {
+    app.controller('LoginCtrl', function ($scope, $rootScope,ParticipantsStore) {
+        $scope.FBLogin = function () {
+            FB.login(function(response) {
+                if (response.authResponse) {
 
+                    console.log('TOT RASPUNSUL',response);
+                    console.log('Welcome!  Fetching your information.... ');
+                    FB.api('/me', function(response) {
+                        console.log('Good to see you, ' + response.name + '.');
+                        var accessToken = FB.getAuthResponse().accessToken;
+
+                        console.log('TOT RASPUNSUL',response);
+                        console.log('ID',response.id);
+                        console.log('NUMELE',response.name);
+                        console.log('TOKEN',accessToken);
+                    });
+                } else {
+                    console.log('User cancelled login or did not fully authorize.');
+                }
+            });
+        };
 
         /*$scope.$watch('user', function() {
             $rootScope.$broadcast('User', $scope.user);
@@ -138,4 +157,21 @@
             };
         })();
     });
+//    ------------------FACEBOOK API INIT------------------//
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '1533557483610625',
+            xfbml      : true,
+            version    : 'v2.5'
+        });
+    };
+
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+        console.log('FB init');
+    }(document, 'script', 'facebook-jssdk'));
 })();
