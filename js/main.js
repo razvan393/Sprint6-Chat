@@ -7,12 +7,12 @@
         "fb_id": 1234567890
     }];
 
-    app.controller('LoginCtrl', function ($scope, $rootScope) {
-
-
-        /*$scope.$watch('user', function() {
-            $rootScope.$broadcast('User', $scope.user);
-        });*/
+    app.controller('LoginCtrl', function ($scope, ParticipantsStore) {/*
+        var x= [];
+        ParticipantsStore.getParticipants().then(function(item) {
+            x = item;
+        });
+        console.log(x);*/
     });
 
     app.controller('IndexCtrl', function ($scope) {
@@ -35,9 +35,9 @@
                 $scope.form = angular.copy($scope.default);
             };
 
-            console.log($scope.messages.body);
-            console.log($scope.messages);
-            /*TransactionStore.add($scope.form);*/
+            /*MessagesStore.addMessage(id, $scope.form).then(function(messages){
+                $scope.messages = messages;
+            });*/
             $scope.messages.push($scope.form);
             $scope.reset();
         };
