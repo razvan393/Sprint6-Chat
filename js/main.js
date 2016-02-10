@@ -1,12 +1,6 @@
 (function () {
     var app = angular.module('app', ['ngCookies']);
 
-    var user = [{
-        "first_name": "Ionut",
-        "last_name": "Firatoiu",
-        "fb_id": '1234567890'
-    }];
-
     app.controller('LoginCtrl', function ($scope, $rootScope, $cookieStore, ParticipantsStore) {
         $scope.FBLogin = function () {
             FB.login(function(response) {
@@ -31,19 +25,24 @@
                 }
             });
         };
-
-        /*$scope.$watch('user', function() {
-            $rootScope.$broadcast('User', $scope.user);
-        });*/
     });
 
     app.controller('IndexCtrl', function ($scope) {
         $scope.messages = [];
     });
 
-    app.controller('ParticipantsCtrl', function ($scope) {
-        $scope.participants = user;
+    app.controller('ParticipantsCtrl', function ($scope, ParticipantsStore) {
+        $scope.active = [];
+        $scope.participants = ParticipantsStore.getParticipants().then(function(data){
+            angular.forEach(data, function(item){
+               angular.forEach(item, function() {
+                   $scope.active.push(item);
+               });
+            });
+            console.log($scope.active);
 
+            return $scope.active;
+        });
     });
 
     app.controller('FormCtrl', function ($scope) {
@@ -57,8 +56,6 @@
                 $scope.form = angular.copy($scope.default);
             };
 
-            console.log($scope.messages.body);
-            console.log($scope.messages);
             /*TransactionStore.add($scope.form);*/
             $scope.messages.push($scope.form);
             $scope.reset();
