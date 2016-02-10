@@ -16,6 +16,8 @@
                             ParticipantsStore.addParticipant(user).then(function(data){
                                 $cookieStore.put('ParticipantId', data.id);
                             });
+
+                            console.log($cookies.ParticipantId);
                         });
                         console.log('Good to see you, ' + response.name + '.');
                         var accessToken = FB.getAuthResponse().accessToken;
@@ -44,7 +46,7 @@
         });
     });
 
-    app.controller('FormCtrl', function ($scope) {
+    app.controller('FormCtrl', function ($scope, $cookieStore) {
         $scope.data = {
             body: null
         };
@@ -55,7 +57,7 @@
                 $scope.form = angular.copy($scope.default);
             };
 
-            console.log($scope.parent.data.id);
+            console.log($cookieStore);
 
             MessagesStore.addMessage($scope.form);
             $scope.messages.push($scope.form);
