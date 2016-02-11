@@ -76,18 +76,18 @@
         };
         if ($cookies.ParticipantId) {
             $scope.myId = $cookies.ParticipantId.replace(/"/g, "");
-        }
 
-        $scope.submit = function () {
-            $scope.default = {};
-            $scope.reset = function () {
-                $scope.form = angular.copy($scope.default);
+            $scope.submit = function () {
+                $scope.default = {};
+                $scope.reset = function () {
+                    $scope.form = angular.copy($scope.default);
+                };
+
+                MessagesStore.addMessage($scope.myId, $scope.form);
+                $scope.messages.push($scope.form);
+                $scope.reset();
             };
-
-            MessagesStore.addMessage($scope.myId, $scope.form);
-            $scope.messages.push($scope.form);
-            $scope.reset();
-        };
+        }
     });
 
 
