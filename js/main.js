@@ -1,5 +1,5 @@
 (function () {
-    var app = angular.module('app', ['ngCookies']);
+    var app = angular.module('app', ['ngCookies','luegg.directives']);
     app.controller('LoginCtrl', function ($scope, $interval, $rootScope, $cookieStore, $cookies, ParticipantsStore) {
         $scope.participantId = '';
         $scope.FBLogin = function () {
@@ -56,7 +56,7 @@
 
         setInterval(function () {
             MessagesStore.getMessages($scope.myId).then(function (data) {
-                $scope.messages = data;
+                $scope.messages = data.reverse();
             });
         }, 2000);
 
@@ -208,3 +208,7 @@
         console.log('FB init');
     }(document, 'script', 'facebook-jssdk'));
 })();
+$(function(){
+    var scroll = $('.wrapper');
+    scroll.scrollTop(scroll.prop('scrollHeight'));
+});
