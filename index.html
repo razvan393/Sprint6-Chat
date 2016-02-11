@@ -27,7 +27,10 @@
                     <td>
                         <img ng-src="http://graph.facebook.com/{{ message.participant.fb_id }}/picture?type=small">
                     </td>
-                    <td ng-model="message.body">{{ message.body }}</td>
+                    <td ng-model="message.body">
+                        <p>{{ message.participant.first_name + " " + message.participant.last_name}}</p>
+                        <p>{{ message.body }}</p>
+                    </td>
                 </tr>
                 </tbody>
             </table>
