@@ -102,6 +102,9 @@ form {
     color:#006064;
     background:#B2EBF2;
 }
+.fa-circle {
+    color: #2bb80e;
+}
 /*====================================== Utility classes ============================*/
 
 .right {
