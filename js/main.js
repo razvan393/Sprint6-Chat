@@ -1,24 +1,7 @@
 (function () {
-    var app = angular.module('app', ['ngCookies', 'ngRoute']);
-
-    app.config(function($routeProvider, $locationProvider) {
-        $locationProvider.html5Mode({
-            enabled: true,
-            requireBase: false
-        });
-        $routeProvider.when('/',
-            {
-            templateUrl: 'login.html'
-            })
-            .when('/main.html',
-                {
-                    templateUrl: 'main.html'
-                })
-            .otherwise({
-                templateUrl: 'login.html'
-            })
-    });
-    app.controller('LoginCtrl', function ($scope, $rootScope, $cookieStore, $cookies, ParticipantsStore) {
+    var app = angular.module('app', ['ngCookies']);
+    app.controller('LoginCtrl', function ($scope, $interval, $rootScope, $cookieStore, $cookies, ParticipantsStore) {
+        $scope.participantId = '';
         $scope.FBLogin = function () {
             FB.login(function (response) {
                 if (response.authResponse) {
@@ -32,6 +15,7 @@
                         $scope.$apply(function () {
                             ParticipantsStore.addParticipant(user).then(function (data) {
                                 $cookieStore.put('ParticipantId', data.id);
+                                $scope.participantId = $cookieStore.get('ParticipantId');
                             });
 
                         });
@@ -57,9 +41,12 @@
         };
     });
 
-    app.controller('IndexCtrl', function ($scope, $cookies, MessagesStore, $timeout) {
+    app.controller('IndexCtrl', function ($scope, $cookies, MessagesStore) {
+        console.log('weee');
         $scope.messages = [];
-        //$scope.myId = $cookies.ParticipantId.replace(/"/g, "");
+        if ($cookies.ParticipantId) {
+            $scope.myId = $cookies.ParticipantId.replace(/"/g, "");
+        }
         $scope.getTheMessage = MessagesStore.getMessages($scope.myId).then(function (data) {
             angular.forEach(data, function (item) {
                 $scope.messages.push(item.body);
@@ -68,8 +55,8 @@
             return $scope.messages;
         });
 
-        $timeout(function () {
-            $scope.messages = MessagesStore.getMessages($scope.myId).then(function (data) {
+        setInterval(function () {
+            MessagesStore.getMessages($scope.myId).then(function (data) {
                 $scope.messages = data;
             });
         }, 2000);
@@ -78,6 +65,7 @@
     app.controller('ParticipantsCtrl', function ($scope, ParticipantsStore) {
         $scope.active = [];
         $scope.participants = ParticipantsStore.getParticipants().then(function (data) {
+
             $scope.active = data;
         });
     });
@@ -86,20 +74,20 @@
         $scope.data = {
             body: null
         };
+        if ($cookies.ParticipantId) {
+            $scope.myId = $cookies.ParticipantId.replace(/"/g, "");
 
-        //$scope.myId = $cookies.ParticipantId.replace(/"/g, "");
+            $scope.submit = function () {
+                $scope.default = {};
+                $scope.reset = function () {
+                    $scope.form = angular.copy($scope.default);
+                };
 
-
-        $scope.submit = function () {
-            $scope.default = {};
-            $scope.reset = function () {
-                $scope.form = angular.copy($scope.default);
+                MessagesStore.addMessage($scope.myId, $scope.form);
+                $scope.messages.push($scope.form);
+                $scope.reset();
             };
-
-            MessagesStore.addMessage($scope.myId, $scope.form);
-            $scope.messages.push($scope.form);
-            $scope.reset();
-        };
+        }
     });
 
 
