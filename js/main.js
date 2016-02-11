@@ -1,6 +1,23 @@
 (function () {
-    var app = angular.module('app', ['ngCookies']);
+    var app = angular.module('app', ['ngCookies', 'ngRoute']);
 
+    app.config(function($routeProvider, $locationProvider) {
+        $locationProvider.html5Mode({
+            enabled: true,
+            requireBase: false
+        });
+        $routeProvider.when('/',
+            {
+            templateUrl: 'login.html'
+            })
+            .when('/main.html',
+                {
+                    templateUrl: 'main.html'
+                })
+            .otherwise({
+                templateUrl: 'login.html'
+            })
+    });
     app.controller('LoginCtrl', function ($scope, $rootScope, $cookieStore, $cookies, ParticipantsStore) {
         $scope.FBLogin = function () {
             FB.login(function (response) {
