@@ -1,10 +1,5 @@
 (function () {
     var app = angular.module('app', ['ngCookies']);
-    var user = [{
-        "first_name": "Ionut",
-        "last_name": "Firatoiu",
-        "fb_id": '1234567890'
-    }];
 
     app.controller('LoginCtrl', function ($scope, $rootScope, $cookieStore, $cookies, ParticipantsStore) {
         $scope.FBLogin = function () {
@@ -22,7 +17,12 @@
                                 $cookieStore.put('ParticipantId', data.id);
                             });
 
-                            console.log($cookies.ParticipantId);
+                            $scope.cookie = function() {
+                                $rootScope.$broadcast('cookieId', function(val) {
+                                    $cookies.ParticipantId = val;
+                                    console.log(val);
+                                });
+                            };
                         });
                         console.log('Good to see you, ' + response.name + '.');
                         var accessToken = FB.getAuthResponse().accessToken;
@@ -52,10 +52,17 @@
         });
     });
 
-    app.controller('FormCtrl', function ($scope, $cookieStore) {
+    app.controller('FormCtrl', function ($scope, MessagesStore) {
         $scope.data = {
             body: null
         };
+
+        $scope.$on('cookieId', function(e, val) {
+            $scope.cookie = val;
+            console.log($scope.cookie);
+        });
+
+        console.log($scope.cookie);
 
         $scope.submit = function () {
             $scope.default = {};
@@ -63,9 +70,7 @@
                 $scope.form = angular.copy($scope.default);
             };
 
-            console.log($cookieStore);
-
-            MessagesStore.addMessage($scope.form);
+            MessagesStore.addMessage($scope.cookie, $scope.form);
             $scope.messages.push($scope.form);
             $scope.reset();
         };
