@@ -23,8 +23,6 @@
                         });
                         console.log('Good to see you, ' + response.name + '.');
                         var accessToken = FB.getAuthResponse().accessToken;
-                          var arg = true;
-
                     });
 
                 } else {
@@ -40,13 +38,12 @@
                         document.location.reload();
                         console.log('FB OUT')
                     });
-
                 }
             });
         };
     });
 
-    app.controller('IndexCtrl', function ($scope) {
+    app.controller('IndexCtrl', function ($scope, $cookies) {
         $scope.messages = [];
     });
 
@@ -58,7 +55,6 @@
                    $scope.active.push(item);
                });
             });
-            console.log($scope.active);
 
             return $scope.active;
         });

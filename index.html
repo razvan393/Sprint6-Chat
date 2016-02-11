@@ -19,16 +19,16 @@
             <span ng-repeat=" user in active track by first_name ">{{ user.first_name }} {{ user.last_name }}</span>
         </div>
         <div>
-            <table>
+<!--            <table>
                 <tbody>
                 <tr ng-repeat="message in messages">
                     <td ng-model="message.body">{{ message.body }}</td>
                 </tr>
                 </tbody>
-            </table>
-            <!--<ul>
-                <li ng-repeat="message in messages" ng-model="message.body">{{ message.body }}</li>
-            </ul>-->
+            </table>-->
+            <div>
+                <p ng-repeat="message in messages" ng-model="message.body">{{ message.body }}</p>
+            </div>
         </div>
     </div>
     <div ng-controller="FormCtrl ">
@@ -43,12 +43,13 @@
 </div>
 <div class="right fb-button" ng-controller="IndexCtrl">
     <div ng-controller="LoginCtrl" >
-
         <a href="#" class="button facebook" ng-click="FBLogin()"><i class="fa fa-facebook-square fa-2x"></i>Sign in with Facebook</a>
         <a href="#" class="button logout" ng-click="FBLogout()"><i class="fa fa-sign-out fa-2x"></i>Sign out</a>
         <!--<div class="container-main ">-->
         <!--</div>-->
     </div>
+    <div ng-if="test">mmmmm</div>
+    <div ng-if="arg">mmmm2</div>
 </div>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
