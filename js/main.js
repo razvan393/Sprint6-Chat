@@ -44,9 +44,9 @@
     app.controller('IndexCtrl', function ($scope, $cookies, MessagesStore) {
         console.log('weee');
         $scope.messages = [];
-     /*   if ($cookies.ParticipantId) {
+        if ($cookies.ParticipantId) {
             $scope.myId = $cookies.ParticipantId.replace(/"/g, "");
-        }*/
+        }
         $scope.getTheMessage = MessagesStore.getMessages($scope.myId).then(function (data) {
             angular.forEach(data, function (item) {
                 $scope.messages.push(item.body);
@@ -74,9 +74,9 @@
         $scope.data = {
             body: null
         };
-        //if ($cookies.ParticipantId) {
-        //    $scope.myId = $cookies.ParticipantId.replace(/"/g, "");
-        //}
+        if ($cookies.ParticipantId) {
+            $scope.myId = $cookies.ParticipantId.replace(/"/g, "");
+        }
 
         $scope.submit = function () {
             $scope.default = {};
