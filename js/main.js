@@ -1,17 +1,7 @@
 (function () {
     var app = angular.module('app', ['ngCookies']);
-var test = 0;
-    console.log(test);
     app.controller('LoginCtrl', function ($scope, $interval, $rootScope, $cookieStore, $cookies, ParticipantsStore) {
-         test = $cookies.ParticipantId;
-        $scope.name = test;
-        console.log(test);
-/*
-        $interval(function() {
-            $scope.name = $scope.name == 'Ion' ? 'g' : 'Ion'
-        }, 2000);
-*/
-
+        $scope.participantId = '';
         $scope.FBLogin = function () {
             FB.login(function (response) {
                 if (response.authResponse) {
@@ -25,7 +15,7 @@ var test = 0;
                         $scope.$apply(function () {
                             ParticipantsStore.addParticipant(user).then(function (data) {
                                 $cookieStore.put('ParticipantId', data.id);
-                                $scope.name = $scope.name == test ? '' : test
+                                $scope.participantId = $cookieStore.get('ParticipantId');
                             });
 
                         });
@@ -51,9 +41,12 @@ var test = 0;
         };
     });
 
-    app.controller('IndexCtrl', function ($scope, $cookies, MessagesStore, $timeout) {
+    app.controller('IndexCtrl', function ($scope, $cookies, MessagesStore) {
+        console.log('weee');
         $scope.messages = [];
-        $scope.myId = $cookies.ParticipantId.replace(/"/g, "");
+     /*   if ($cookies.ParticipantId) {
+            $scope.myId = $cookies.ParticipantId.replace(/"/g, "");
+        }*/
         $scope.getTheMessage = MessagesStore.getMessages($scope.myId).then(function (data) {
             angular.forEach(data, function (item) {
                 $scope.messages.push(item.body);
@@ -63,12 +56,8 @@ var test = 0;
         });
 
         setInterval(function () {
-            $scope.messages = MessagesStore.getMessages($scope.myId).then(function (data) {
-                angular.forEach(data, function (item) {
-                    $scope.messages.push(item);
-                });
-
-                return $scope.messages;
+            MessagesStore.getMessages($scope.myId).then(function (data) {
+                $scope.messages = data;
             });
         }, 2000);
     });
@@ -76,11 +65,8 @@ var test = 0;
     app.controller('ParticipantsCtrl', function ($scope, ParticipantsStore) {
         $scope.active = [];
         $scope.participants = ParticipantsStore.getParticipants().then(function (data) {
-            angular.forEach(data, function (item) {
-                    $scope.active.push(item);
-            });
 
-            return $scope.active;
+            $scope.active = data;
         });
     });
 
@@ -88,9 +74,9 @@ var test = 0;
         $scope.data = {
             body: null
         };
-
-        $scope.myId = $cookies.ParticipantId.replace(/"/g, "");
-
+        //if ($cookies.ParticipantId) {
+        //    $scope.myId = $cookies.ParticipantId.replace(/"/g, "");
+        //}
 
         $scope.submit = function () {
             $scope.default = {};

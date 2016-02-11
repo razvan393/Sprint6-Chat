@@ -8,15 +8,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="cleartype" content="on">
 
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha256-3dkvEK0WLHRJ7/Csr0BZjAWxERc5WH7bdeUya2aXxdU= sha512-+L4yy6FRcDGbXJ9mPG8MT/3UCDzwR9gPeyFNMCtInsol++5m3bk2bXWKdZjvybmohrAsn3Ua5x8gfLnbE1YkOg==" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet"
+          integrity="sha256-3dkvEK0WLHRJ7/Csr0BZjAWxERc5WH7bdeUya2aXxdU= sha512-+L4yy6FRcDGbXJ9mPG8MT/3UCDzwR9gPeyFNMCtInsol++5m3bk2bXWKdZjvybmohrAsn3Ua5x8gfLnbE1YkOg=="
+          crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body ng-controller="LoginCtrl">
 <div class="container-main parent" ng-controller="IndexCtrl">
-    <div class="wrapper container"  ng-if="name !== test" >
+    <div class="wrapper container" ng-if="participantId">
         <div class="head" ng-controller="ParticipantsCtrl">
-            <span ng-repeat=" user in active track by id ">{{ user.first_name }} {{ user.last_name }}</span>
+            <span ng-repeat=" user in active">{{ user.first_name }} {{ user.last_name }}</span>
         </div>
         <div>
             <!--            <table>
@@ -42,8 +44,10 @@
     </div>
 </div>
 <div class="right fb-button">
-    <div ng-controller="LoginCtrl" style="color:#fff">
-        <a  href="#" class="button facebook" ng-click="FBLogin()"><i class="fa fa-facebook-square fa-2x"></i>Sign in with Facebook</a ng-if="name == 'Ion'">
+    <div style="color:#fff">
+        <strong>{{participantId}}</strong>
+        <a href="#" class="button facebook" ng-click="FBLogin()"><i class="fa fa-facebook-square fa-2x"></i>Sign in with
+            Facebook</a ng-if="name == 'Ion'">
         <a href="#" class="button logout" ng-click="FBLogout()"><i class="fa fa-sign-out fa-2x"></i>Sign out</a>
     </div>
 </div>
