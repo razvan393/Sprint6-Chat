@@ -205,7 +205,3 @@
         console.log('FB init');
     }(document, 'script', 'facebook-jssdk'));
 })();
-$(function(){
-    var scroll = $('.wrapper');
-    scroll.scrollTop(scroll.prop('scrollHeight'));
-});
