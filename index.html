@@ -13,7 +13,40 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<ng-view></ng-view>
+<div class="container-main parent" ng-controller="IndexCtrl">
+    <div class="wrapper container"  ng-if="name !== test" >
+        <div class="head" ng-controller="ParticipantsCtrl">
+            <span ng-repeat=" user in active track by id ">{{ user.first_name }} {{ user.last_name }}</span>
+        </div>
+        <div>
+            <!--            <table>
+                            <tbody>
+                            <tr ng-repeat="message in messages">
+                                <td ng-model="message.body">{{ message.body }}</td>
+                            </tr>
+                            </tbody>
+                        </table>-->
+            <div>
+                <p ng-repeat="message in messages" ng-model="message.body">{{ message.body }}</p>
+            </div>
+        </div>
+    </div>
+    <div ng-controller="FormCtrl ">
+        <form class="form-horizontal" ng-controller="FormCtrl" ng-submit="submit()">
+            <div class="clearfix parent">
+                <input class="col-md-8" type="text" class="form-control" id="message" ng-model="form.body">
+                <button type="submit" class="btn col-md-2 col-offset-2 move"><i class="fa fa-reply fa-lg"></i></button>
+            </div>
+            <div class="clearfix"></div>
+        </form>
+    </div>
+</div>
+<div class="right fb-button">
+    <div ng-controller="LoginCtrl" style="color:#fff">
+        <a  href="#" class="button facebook" ng-click="FBLogin()"><i class="fa fa-facebook-square fa-2x"></i>Sign in with Facebook</a ng-if="name == 'Ion'">
+        <a href="#" class="button logout" ng-click="FBLogout()"><i class="fa fa-sign-out fa-2x"></i>Sign out</a>
+    </div>
+</div>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.1/moment.min.js"></script>

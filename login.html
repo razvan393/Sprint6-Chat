@@ -1,5 +1,6 @@
 <div class="right fb-button">
-    <div ng-controller="LoginCtrl">
-        <a href="/main.html" class="button facebook" ng-click="FBLogin()"><i class="fa fa-facebook-square fa-2x"></i>Sign in with Facebook</a>
+    <div ng-controller="LoginCtrl" style="color:#fff">
+        <a ng-if="name == 'Ion'" href="/main.html" class="button facebook" ng-click="FBLogin()"><i class="fa fa-facebook-square fa-2x"></i>Sign in with Facebook</a ng-if="name == 'Ion'">
+        <a href="#" class="button logout" ng-click="FBLogout()"><i class="fa fa-sign-out fa-2x"></i>Sign out</a>
     </div>
 </div>

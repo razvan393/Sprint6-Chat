@@ -1,24 +1,17 @@
 (function () {
-    var app = angular.module('app', ['ngCookies', 'ngRoute']);
+    var app = angular.module('app', ['ngCookies']);
+var test = 0;
+    console.log(test);
+    app.controller('LoginCtrl', function ($scope, $interval, $rootScope, $cookieStore, $cookies, ParticipantsStore) {
+         test = $cookies.ParticipantId;
+        $scope.name = test;
+        console.log(test);
+/*
+        $interval(function() {
+            $scope.name = $scope.name == 'Ion' ? 'g' : 'Ion'
+        }, 2000);
+*/
 
-    app.config(function($routeProvider, $locationProvider) {
-        $locationProvider.html5Mode({
-            enabled: true,
-            requireBase: false
-        });
-        $routeProvider.when('/',
-            {
-            templateUrl: 'login.html'
-            })
-            .when('/main.html',
-                {
-                    templateUrl: 'main.html'
-                })
-            .otherwise({
-                templateUrl: 'login.html'
-            })
-    });
-    app.controller('LoginCtrl', function ($scope, $rootScope, $cookieStore, $cookies, ParticipantsStore) {
         $scope.FBLogin = function () {
             FB.login(function (response) {
                 if (response.authResponse) {
@@ -32,6 +25,7 @@
                         $scope.$apply(function () {
                             ParticipantsStore.addParticipant(user).then(function (data) {
                                 $cookieStore.put('ParticipantId', data.id);
+                                $scope.name = $scope.name == test ? '' : test
                             });
 
                         });
@@ -67,9 +61,8 @@
 
             return $scope.messages;
         });
-        console.log($scope.messages);
 
-        $timeout(function () {
+        setInterval(function () {
             $scope.messages = MessagesStore.getMessages($scope.myId).then(function (data) {
                 angular.forEach(data, function (item) {
                     $scope.messages.push(item);
@@ -84,9 +77,7 @@
         $scope.active = [];
         $scope.participants = ParticipantsStore.getParticipants().then(function (data) {
             angular.forEach(data, function (item) {
-                angular.forEach(item, function () {
                     $scope.active.push(item);
-                });
             });
 
             return $scope.active;
