@@ -1,0 +1,33 @@
+<div class="container-main parent" ng-controller="IndexCtrl">
+    <div class="wrapper container"  >
+        <div class="head" ng-controller="ParticipantsCtrl">
+            <span ng-repeat=" user in active track by id ">{{ user.first_name }} {{ user.last_name }}</span>
+        </div>
+        <div>
+            <!--            <table>
+                            <tbody>
+                            <tr ng-repeat="message in messages">
+                                <td ng-model="message.body">{{ message.body }}</td>
+                            </tr>
+                            </tbody>
+                        </table>-->
+            <div>
+                <p ng-repeat="message in messages" ng-model="message.body">{{ message.body }}</p>
+            </div>
+        </div>
+    </div>
+    <div ng-controller="FormCtrl ">
+        <form class="form-horizontal" ng-controller="FormCtrl" ng-submit="submit()">
+            <div class="clearfix parent">
+                <input class="col-md-8" type="text" class="form-control" id="message" ng-model="form.body">
+                <button type="submit" class="btn col-md-2 col-offset-2 move"><i class="fa fa-reply fa-lg"></i></button>
+            </div>
+            <div class="clearfix"></div>
+        </form>
+    </div>
+</div>
+<div class="right fb-button">
+    <div ng-controller="LoginCtrl">
+        <a href="#" class="button logout" ng-click="FBLogout()"><i class="fa fa-sign-out fa-2x"></i>Sign out</a>
+    </div>
+</div>
