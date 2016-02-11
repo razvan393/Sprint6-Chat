@@ -70,7 +70,6 @@
     });
 
     app.controller('FormCtrl', function ($scope, MessagesStore, $cookies) {
-        console.log($cookies.ParticipantId);
         $scope.messages = [];
         $scope.data = {
             body: null
