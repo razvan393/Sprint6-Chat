@@ -59,7 +59,7 @@
 
     app.controller('IndexCtrl', function ($scope, $cookies, MessagesStore, $timeout) {
         $scope.messages = [];
-        $scope.myId = $cookies.ParticipantId.replace(/"/g, "");
+        //$scope.myId = $cookies.ParticipantId.replace(/"/g, "");
         $scope.getTheMessage = MessagesStore.getMessages($scope.myId).then(function (data) {
             angular.forEach(data, function (item) {
                 $scope.messages.push(item.body);
@@ -67,15 +67,10 @@
 
             return $scope.messages;
         });
-        console.log($scope.messages);
 
         $timeout(function () {
             $scope.messages = MessagesStore.getMessages($scope.myId).then(function (data) {
-                angular.forEach(data, function (item) {
-                    $scope.messages.push(item);
-                });
-
-                return $scope.messages;
+                $scope.messages = data;
             });
         }, 2000);
     });
@@ -83,13 +78,7 @@
     app.controller('ParticipantsCtrl', function ($scope, ParticipantsStore) {
         $scope.active = [];
         $scope.participants = ParticipantsStore.getParticipants().then(function (data) {
-            angular.forEach(data, function (item) {
-                angular.forEach(item, function () {
-                    $scope.active.push(item);
-                });
-            });
-
-            return $scope.active;
+            $scope.active = data;
         });
     });
 
@@ -98,7 +87,7 @@
             body: null
         };
 
-        $scope.myId = $cookies.ParticipantId.replace(/"/g, "");
+        //$scope.myId = $cookies.ParticipantId.replace(/"/g, "");
 
 
         $scope.submit = function () {
