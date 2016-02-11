@@ -42,7 +42,6 @@
     });
 
     app.controller('IndexCtrl', function ($scope, $cookies, MessagesStore) {
-        console.log('weee');
         $scope.messages = [];
         if ($cookies.ParticipantId) {
             $scope.myId = $cookies.ParticipantId.replace(/"/g, "");
@@ -60,34 +59,35 @@
                 $scope.messages = data;
             });
         }, 2000);
+
     });
 
     app.controller('ParticipantsCtrl', function ($scope, ParticipantsStore) {
         $scope.active = [];
         $scope.participants = ParticipantsStore.getParticipants().then(function (data) {
-
             $scope.active = data;
         });
     });
 
     app.controller('FormCtrl', function ($scope, MessagesStore, $cookies) {
+        $scope.messages = [];
         $scope.data = {
             body: null
         };
         if ($cookies.ParticipantId) {
             $scope.myId = $cookies.ParticipantId.replace(/"/g, "");
-
-            $scope.submit = function () {
-                $scope.default = {};
-                $scope.reset = function () {
-                    $scope.form = angular.copy($scope.default);
-                };
-
-                MessagesStore.addMessage($scope.myId, $scope.form);
-                $scope.messages.push($scope.form);
-                $scope.reset();
-            };
         }
+        $scope.submit = function () {
+            $scope.default = {};
+            $scope.reset = function () {
+                $scope.form = angular.copy($scope.default);
+            };
+
+            MessagesStore.addMessage($scope.myId, $scope.form);
+            $scope.messages.push($scope.form);
+
+            $scope.reset();
+        };
     });
 
 
