@@ -29,7 +29,7 @@
                             </tbody>
                         </table>-->
             <div>
-                <p ng-repeat="message in messages" ng-model="message.body">{{ message.body }}</p>
+                <p ng-repeat="message in messages track by $index" ng-model="message.body">{{ message.body }}</p>
             </div>
         </div>
     </div>
