@@ -17,12 +17,6 @@
                                 $cookieStore.put('ParticipantId', data.id);
                             });
 
-                            $scope.cookie = function() {
-                                $rootScope.$broadcast('cookieId', function(val) {
-                                    $cookies.ParticipantId = val;
-                                    console.log(val);
-                                });
-                            };
                         });
                         console.log('Good to see you, ' + response.name + '.');
                         var accessToken = FB.getAuthResponse().accessToken;
@@ -33,10 +27,10 @@
                 }
             });
         };
-        $scope.$apply.FBLogout = function(){
-            FB.getLoginStatus(function(response) {
+        $scope.$apply.FBLogout = function () {
+            FB.getLoginStatus(function (response) {
                 if (response && response.status === 'connected') {
-                    FB.logout(function(response) {
+                    FB.logout(function (response) {
                         document.location.reload();
                         console.log('FB OUT')
                     });
@@ -46,34 +40,49 @@
         };
     });
 
-    app.controller('IndexCtrl', function ($scope) {
+    app.controller('IndexCtrl', function ($scope, $cookies, MessagesStore, $timeout) {
         $scope.messages = [];
+        $scope.myId = $cookies.ParticipantId.replace(/"/g, "");
+        $scope.getTheMessage = MessagesStore.getMessages($scope.myId).then(function (data) {
+            angular.forEach(data, function (item) {
+                $scope.messages.push(item.body);
+            });
+
+            return $scope.messages;
+        });
+        console.log($scope.messages);
+
+        $timeout(function () {
+            $scope.messages = MessagesStore.getMessages($scope.myId).then(function (data) {
+                angular.forEach(data, function (item) {
+                    $scope.messages.push(item);
+                });
+
+                return $scope.messages;
+            });
+        }, 2000);
     });
 
     app.controller('ParticipantsCtrl', function ($scope, ParticipantsStore) {
         $scope.active = [];
-        $scope.participants = ParticipantsStore.getParticipants().then(function(data){
-            angular.forEach(data, function(item){
-               angular.forEach(item, function() {
-                   $scope.active.push(item);
-               });
+        $scope.participants = ParticipantsStore.getParticipants().then(function (data) {
+            angular.forEach(data, function (item) {
+                angular.forEach(item, function () {
+                    $scope.active.push(item);
+                });
             });
 
             return $scope.active;
         });
     });
 
-    app.controller('FormCtrl', function ($scope, MessagesStore) {
+    app.controller('FormCtrl', function ($scope, MessagesStore, $cookies) {
         $scope.data = {
             body: null
         };
 
-        $scope.$on('cookieId', function(e, val) {
-            $scope.cookie = val;
-            console.log($scope.cookie);
-        });
+        $scope.myId = $cookies.ParticipantId.replace(/"/g, "");
 
-        console.log($scope.cookie);
 
         $scope.submit = function () {
             $scope.default = {};
@@ -81,7 +90,7 @@
                 $scope.form = angular.copy($scope.default);
             };
 
-            MessagesStore.addMessage($scope.cookie, $scope.form);
+            MessagesStore.addMessage($scope.myId, $scope.form);
             $scope.messages.push($scope.form);
             $scope.reset();
         };
