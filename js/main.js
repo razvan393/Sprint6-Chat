@@ -6,7 +6,7 @@
             FB.login(function (response) {
                 if (response.authResponse) {
                     console.log('Welcome!  Fetching your information.... ');
-                    FB.api('/me', function (response) {
+                    FB.api('/me/', function (response) {
                         user = {
                             first_name: response.name.split(" ")[0],
                             last_name: response.name.split(" ")[1],
@@ -17,18 +17,15 @@
                                 $cookieStore.put('ParticipantId', data.id);
                                 $scope.participantId = $cookieStore.get('ParticipantId');
                             });
-
                         });
                         console.log('Good to see you, ' + response.name + '.');
-                        var accessToken = FB.getAuthResponse().accessToken;
                     });
-
                 } else {
                     console.log('User cancelled login or did not fully authorize.');
                 }
             });
         };
-        $scope.$apply.FBLogout = function () {
+        $scope.FBLogout = function () {
             FB.getLoginStatus(function (response) {
                 if (response && response.status === 'connected') {
                     FB.logout(function (response) {
