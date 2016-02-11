@@ -18,19 +18,16 @@
 <div class="container-main parent" ng-if="participantId">
     <div class="wrapper container" ng-controller="IndexCtrl" >
         <div class="head" ng-controller="ParticipantsCtrl">
-            <span ng-repeat=" user in active">{{ user.first_name }} {{ user.last_name }}</span>
+            <span ng-repeat=" user in active"> {{ user.first_name }} {{ user.last_name }} </span>
         </div>
         <div>
-            <!--            <table>
-                            <tbody>
-                            <tr ng-repeat="message in messages">
-                                <td ng-model="message.body">{{ message.body }}</td>
-                            </tr>
-                            </tbody>
-                        </table>-->
-            <div>
-                <p ng-repeat="message in messages track by $index" ng-model="message.body">{{ message.body }}</p>
-            </div>
+            <table>
+                <tbody>
+                <tr ng-repeat="message in messages track by $index">
+                    <td ng-model="message.body">{{ message.body }}</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
     <div ng-controller="FormCtrl ">
