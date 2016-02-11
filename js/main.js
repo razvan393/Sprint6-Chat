@@ -78,6 +78,7 @@
             $scope.default = {};
             $scope.reset = function () {
                 $scope.form = angular.copy($scope.default);
+                console.log('a mers textarea')
             };
 
             MessagesStore.addMessage($scope.myId, $scope.form);
@@ -86,7 +87,6 @@
             $scope.reset();
         };
     });
-
 
     //create services
     app.factory('ParticipantsStore', function ($http, $q) {
@@ -204,4 +204,20 @@
         fjs.parentNode.insertBefore(js, fjs);
         console.log('FB init');
     }(document, 'script', 'facebook-jssdk'));
+
+//---------------------------------TEXTAREA ON ENTER-----------------------------------//
+
+    app.directive('ngEnter', function () {
+        return function (scope, element, attrs) {
+            element.bind("keydown keypress", function (event) {
+                if(event.which === 13) {
+                    scope.$apply(function (){
+                        scope.$eval(attrs.ngEnter);
+                    });
+
+                    event.preventDefault();
+                }
+            });
+        };
+    });
 })();
