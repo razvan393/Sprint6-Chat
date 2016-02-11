@@ -42,7 +42,10 @@
     <div ng-controller="FormCtrl ">
         <form class="form-horizontal" ng-controller="FormCtrl" ng-submit="submit()">
             <div class="clearfix parent">
-                <input class="col-md-10" type="text" class="form-control" id="message" ng-model="form.body">
+                <textarea class="col-md-10" type="text" class="form-control"
+                          id="message" ng-enter="submit()" ng-model="form.body">
+                </textarea>
+                <!--<input class="col-md-10" type="text" class="form-control" id="message" ng-model="form.body">-->
             </div>
             <div class="clearfix"></div>
         </form>
@@ -51,7 +54,7 @@
 <div class='right fb-button' ng-if="!participantId">
     <div>
         <a href="#" class="button facebook" ng-click="FBLogin()"><i class="fa fa-facebook-square fa-2x"></i>Sign in with
-            Facebook</a ng-if="name == 'Ion'">
+            Facebook</a>
     </div>
         <a href="#" class="button logout" ng-click="FBLogout()"><i class="fa fa-sign-out fa-2x"></i>Sign out</a>
 </div>
