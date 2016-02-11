@@ -16,7 +16,7 @@
 <div class="container-main parent" ng-controller="IndexCtrl">
     <div class="wrapper container"  >
         <div class="head" ng-controller="ParticipantsCtrl">
-            <span ng-repeat=" user in active track by first_name ">{{ user.first_name }} {{ user.last_name }}</span>
+            <span ng-repeat=" user in active track by id ">{{ user.first_name }} {{ user.last_name }}</span>
         </div>
         <div>
 <!--            <table>
