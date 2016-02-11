@@ -5,7 +5,6 @@
         "last_name": "Firatoiu",
         "fb_id": '1234567890'
     }];
-
     app.controller('LoginCtrl', function ($scope, $rootScope, $cookieStore, $cookies, ParticipantsStore) {
         $scope.FBLogin = function () {
             FB.login(function (response) {
@@ -24,12 +23,15 @@
                         });
                         console.log('Good to see you, ' + response.name + '.');
                         var accessToken = FB.getAuthResponse().accessToken;
+                          var arg = true;
+
                     });
 
                 } else {
                     console.log('User cancelled login or did not fully authorize.');
                 }
             });
+
         };
     });
 
