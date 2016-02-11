@@ -24,6 +24,9 @@
             <table>
                 <tbody>
                 <tr ng-repeat="message in messages track by $index">
+                    <td>
+                        <img ng-src="http://graph.facebook.com/{{ message.participant.fb_id }}/picture?type=small">
+                    </td>
                     <td ng-model="message.body">{{ message.body }}</td>
                 </tr>
                 </tbody>
