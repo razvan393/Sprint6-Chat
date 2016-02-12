@@ -55,8 +55,9 @@
         <a href="#" class="button facebook" ng-click="FBLogin()"><i class="fa fa-facebook-square fa-2x"></i>Sign in with
             Facebook</a>
     </div>
-        <a href="#" class="button logout" ng-click="FBLogout()"> <i class="fa fa-sign-out fa-2x"></i>Sign out</a>
 </div>
+    <a href="#" class="button logout" ng-hide="!participantId" ng-click="FBLogout()">
+    <i class="fa fa-sign-out fa-2x"></i>Sign out</a>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.1/moment.min.js"></script>
