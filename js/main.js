@@ -78,7 +78,6 @@
 
             MessagesStore.addMessage($scope.myId, $scope.form);
             $scope.messages.push($scope.form);
-
             $scope.reset();
         };
     });
