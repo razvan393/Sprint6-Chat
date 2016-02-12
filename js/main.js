@@ -1,5 +1,6 @@
 (function () {
     var app = angular.module('app', ['ngCookies','luegg.directives']);
+
     app.controller('LoginCtrl', function ($scope, $interval, $rootScope, $cookieStore, $cookies, ParticipantsStore) {
         $scope.participantId = '';
         $scope.FBLogin = function () {
@@ -25,15 +26,9 @@
                 }
             });
         };
-        $scope.FBLogout = function () {
-            FB.getLoginStatus(function (response) {
-                if (response && response.status === 'connected') {
-                    FB.logout(function (response) {
-                        document.location.reload();
-                        console.log('FB OUT')
-                    });
-
-                }
+        $scope.FBLogout = function (){
+            FB.logout(function(response) {
+                document.location.reload()
             });
         };
     });
