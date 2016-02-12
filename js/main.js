@@ -1,5 +1,8 @@
 (function () {
     var app = angular.module('app', ['ngCookies', 'luegg.directives']);
+    var errorHandler = function (err) {
+        alert(err);
+    };
 
     app.controller('LoginCtrl', function ($scope, $interval, $rootScope, $cookieStore, $cookies, ParticipantsStore) {
         $scope.participantId = '';
@@ -14,10 +17,14 @@
                             fb_id: response.id
                         };
                         $scope.$apply(function () {
-                            ParticipantsStore.addParticipant(user).then(function (data) {
-                                $cookieStore.put('ParticipantId', data.id);
-                                $scope.participantId = $cookieStore.get('ParticipantId');
-                            });
+                            ParticipantsStore.addParticipant(user).then(
+                                function (data) {
+                                    $cookieStore.put('ParticipantId', data.id);
+                                    $scope.participantId = $cookieStore.get('ParticipantId');
+                                },
+                                function () {
+                                    errorHandler('Problem at log in. Please try again!');
+                                });
                         });
                         console.log('Good to see you, ' + response.name + '.');
                     });
@@ -33,56 +40,82 @@
         };
     });
 
-    app.controller('IndexCtrl', function ($scope, $cookies, MessagesStore) {
+    app.controller('IndexCtrl', function ($scope, $cookies, MessagesStore, CookieStore) {
         $scope.messages = [];
-        if ($cookies.ParticipantId) {
-            $scope.myId = $cookies.ParticipantId.replace(/"/g, "");
-        }
-        $scope.getTheMessage = MessagesStore.getMessages($scope.myId).then(function (data) {
-            angular.forEach(data, function (item) {
-                $scope.messages.push(item.body);
-            });
+        $scope.myId = CookieStore.getParticipantCookie($cookies.ParticipantId);
+        $scope.getTheMessage = MessagesStore.getMessages($scope.myId).then(
+            function (data) {
+                angular.forEach(data, function (item) {
+                    $scope.messages.push(item.body);
+                });
 
-            return $scope.messages;
-        });
+                return $scope.messages;
+            },
+            function () {
+                errorHandler('Could not get messages history.');
+            });
 
         setInterval(function () {
-            MessagesStore.getMessages($scope.myId).then(function (data) {
-                $scope.messages = data.reverse();
-            });
+            MessagesStore.getMessages($scope.myId).then(
+                function (data) {
+                    $scope.messages = data.reverse();
+                },
+                function () {
+                    errorHandler('Could not get messages history.');
+                });
         }, 2000);
 
     });
 
     app.controller('ParticipantsCtrl', function ($scope, ParticipantsStore) {
         $scope.active = [];
-        $scope.participants = ParticipantsStore.getParticipants().then(function (data) {
-            $scope.active = data;
-        });
+        $scope.participants = ParticipantsStore.getParticipants().then(
+            function (data) {
+                $scope.active = data;
+            },
+            function () {
+                errorHandler('Could not get participants.');
+            });
     });
 
-    app.controller('FormCtrl', function ($scope, MessagesStore, $cookies) {
+    app.controller('FormCtrl', function ($scope, MessagesStore, $cookies, CookieStore) {
         $scope.messages = [];
         $scope.data = {
             body: null
         };
-        if ($cookies.ParticipantId) {
-            $scope.myId = $cookies.ParticipantId.replace(/"/g, "");
-        }
+        $scope.myId = CookieStore.getParticipantCookie($cookies.ParticipantId);
         $scope.submit = function () {
             $scope.default = {};
             $scope.reset = function () {
                 $scope.form = angular.copy($scope.default);
-                console.log('a mers textarea')
             };
 
-            MessagesStore.addMessage($scope.myId, $scope.form);
+            MessagesStore.addMessage($scope.myId, $scope.form).then(
+                function () {
+                },
+                function () {
+                    errorHandler('Could not send your message.');
+                }
+            );
             $scope.messages.push($scope.form);
             $scope.reset();
         };
     });
 
     //create services
+    app.factory('CookieStore', function () {
+        return (function () {
+            var getParticipantCookie = function (cookie) {
+                if (cookie) {
+                    return cookie.replace(/"/g, "");
+                }
+            };
+            return {
+                getParticipantCookie: getParticipantCookie
+            }
+        })();
+    });
+
     app.factory('ParticipantsStore', function ($http, $q) {
         return (function () {
             var URL = 'http://server.godev.ro:8081/api/participants';
@@ -178,27 +211,6 @@
             };
         })();
     });
-//    ------------------FACEBOOK API INIT------------------//
-    window.fbAsyncInit = function () {
-        FB.init({
-            appId: '1533557483610625',
-            xfbml: true,
-            version: 'v2.5'
-        });
-    };
-
-    (function (d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) {
-            return;
-        }
-        js = d.createElement(s);
-        js.id = id;
-        js.src = "//connect.facebook.net/en_US/sdk.js";
-        fjs.parentNode.insertBefore(js, fjs);
-        console.log('FB init');
-    }(document, 'script', 'facebook-jssdk'));
-
 //---------------------------------TEXTAREA ON ENTER-----------------------------------//
 
     app.directive('ngEnter', function () {
