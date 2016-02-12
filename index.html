@@ -17,10 +17,10 @@
 <body ng-controller="LoginCtrl">
 <div class="container-main parent" ng-if="participantId">
     <div class="head" ng-controller="ParticipantsCtrl">
-            <span ng-repeat=" user in active">
+            <p ng-repeat=" user in active">
                 <i class="fa fa-circle"></i>
                 {{ user.first_name }} {{ user.last_name }}
-            </span>
+            </p>
     </div>
     <div class="wrapper container" ng-controller="IndexCtrl" scroll-glue >
         <div>
@@ -31,7 +31,7 @@
                         <img ng-src="http://graph.facebook.com/{{ message.participant.fb_id }}/picture?type=small">
                     </td>
                     <td ng-model="message.body">
-                        <p>{{ message.participant.first_name + " " + message.participant.last_name}}</p>
+                        <p class="user-name">{{ message.participant.first_name + " " + message.participant.last_name}}</p>
                         <p>{{ message.body }} <div>{{message.date}}</div></p>
                     </td>
                 </tr>
@@ -42,7 +42,7 @@
     <div ng-controller="FormCtrl ">
         <form class="form-horizontal" ng-controller="FormCtrl" ng-submit="submit()">
             <div class="clearfix parent">
-                <textarea class="col-md-10" type="text" class="form-control"
+                <textarea class="col-md-11" type="text" class="form-control"
                           id="message" ng-enter="submit()" ng-model="form.body">
                 </textarea>
             </div>
@@ -51,7 +51,10 @@
     </div>
 </div>
 <div class='right fb-button' ng-if="!participantId">
-    <div>
+    <div class="login-page">
+        <img src="http://www.hgsitebuilder.com/files/writeable/uploads/hostgator143615/image/persil-logo_svg.png" alt="Persil">
+        <h1>Chat</h1>
+        <h2>Login Page</h2>
         <a href="#" class="button facebook" ng-click="FBLogin()"><i class="fa fa-facebook-square fa-2x"></i>Sign in with
             Facebook</a>
     </div>

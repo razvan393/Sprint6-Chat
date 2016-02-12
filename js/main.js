@@ -73,7 +73,6 @@
             $scope.default = {};
             $scope.reset = function () {
                 $scope.form = angular.copy($scope.default);
-                console.log('a mers textarea')
             };
 
             MessagesStore.addMessage($scope.myId, $scope.form);
