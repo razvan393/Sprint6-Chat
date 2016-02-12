@@ -1,5 +1,5 @@
 (function () {
-    var app = angular.module('app', ['ngCookies','luegg.directives']);
+    var app = angular.module('app', ['ngCookies', 'luegg.directives']);
 
     app.controller('LoginCtrl', function ($scope, $interval, $rootScope, $cookieStore, $cookies, ParticipantsStore) {
         $scope.participantId = '';
@@ -26,8 +26,8 @@
                 }
             });
         };
-        $scope.FBLogout = function (){
-            FB.logout(function(response) {
+        $scope.FBLogout = function () {
+            FB.logout(function (response) {
                 document.location.reload()
             });
         };
@@ -203,8 +203,8 @@
     app.directive('ngEnter', function () {
         return function (scope, element, attrs) {
             element.bind("keydown keypress", function (event) {
-                if(event.which === 13) {
-                    scope.$apply(function (){
+                if (event.which === 13) {
+                    scope.$apply(function () {
                         scope.$eval(attrs.ngEnter);
                     });
 

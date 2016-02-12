@@ -1,10 +1,10 @@
 body {
     height: 100%;
-    /*background: url("http://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-22265.jpg")*/
     background: url("http://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-314302.png")
 }
-html{
-    height:100%;
+
+html {
+    height: 100%;
 }
 
 h1 {
@@ -18,22 +18,19 @@ nav {
     text-align: center;
 }
 
-table {
-    width: 100%;
-}
-
 td {
     max-width: 50%;
     padding: 10px;
     float: left;
-    background:#dfe3ee;
+    background: #dfe3ee;
     border-radius: 15%;
-    margin:10px;
-    color:#373e4d;
-    font-family: Arial,sans-serif;
-    font-weight:bold;
+    margin: 10px;
+    color: #373e4d;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
     border: 1px solid #8b9dc3;
 }
+
 form {
     position: absolute;
     bottom: 1%;
@@ -47,6 +44,11 @@ textarea {
     outline: none;
     overflow: hidden;
 }
+
+p {
+    word-wrap: break-word;
+}
+
 /*================================= custom classes =============================*/
 
 .container-main {
@@ -57,10 +59,10 @@ textarea {
     margin-bottom: 1%;
     position: relative;
     background-color: #e9eaed;
-    border:2px solid #006064;
-    -webkit-box-shadow: 0 2px 11px 2px rgba(0,0,0,0.3);
-    -moz-box-shadow: 0 2px 11px 2px rgba(0,0,0,0.3);
-    box-shadow: 0 2px 11px 2px rgba(0,0,0,0.3);
+    border: 2px solid #006064;
+    -webkit-box-shadow: 0 2px 11px 2px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0 2px 11px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 11px 2px rgba(0, 0, 0, 0.3);
 }
 
 .page-header {
@@ -89,7 +91,7 @@ textarea {
     overflow-y: auto;
     overflow-x: hidden;
     padding: 0;
-    border:1px solid #ccc;
+    border: 1px solid #ccc;
 }
 
 .head {
@@ -113,20 +115,23 @@ textarea {
     right: 10px;
     top: 10px;
 }
+
 .move {
     position: absolute;
     transform: translateY(-25%);
-    color:#006064;
-    background:#B2EBF2;
+    color: #006064;
+    background: #B2EBF2;
 }
+
 .fa-circle {
     color: #2bb80e;
 }
 
 .picture {
-    padding:1px;
+    padding: 1px;
     border-radius: 5%;
 }
+
 /*====================================== Utility classes ============================*/
 
 .right {
@@ -138,7 +143,7 @@ textarea {
 }
 
 .parent {
-    position:relative;
+    position: relative;
 }
 .login-page h1{
     font-weight: bold;
@@ -181,6 +186,7 @@ textarea {
         width: 90%;
     }
 }
+
 /*==================================== FACEBOOK LOGIN + LOGOUT ==============================*/
 .button {
     position: relative;
@@ -198,7 +204,7 @@ textarea {
     -moz-transition: all 0.1s ease-in-out;
     transition: all 0.1s ease-in-out;
     font-size: 1.2em;
-    font-weight:bold;
+    font-weight: bold;
     background: #3b5998;
     color: #f4f4f4;
     box-shadow: 0px 3px 0px #2f4779;
@@ -208,9 +214,10 @@ textarea {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    text-decoration:none;
+    text-decoration: none;
     text-align: center;
 }
+
 .button.facebook{
     margin: 0 auto;
     margin-top:20px;
@@ -220,20 +227,24 @@ textarea {
     top: 3px;
     box-shadow: none;
 }
+
 .button .facebook:hover {
-    background:#627aac;
+    background: #627aac;
 }
-a:hover,a:focus {
+
+a:hover, a:focus {
     color: #fff;
-    text-decoration:none;
+    text-decoration: none;
 }
+
 .button i {
-    margin-right:10px;
-    vertical-align:middle;
+    margin-right: 10px;
+    vertical-align: middle;
 }
-.button.logout{
-    background:#00838F;
-    color:#B2EBF2;
+
+.button.logout {
+    background: #00838F;
+    color: #B2EBF2;
     box-shadow: 0px 3px 0px #006064;
     width: 200px;
     display: inline-block;
