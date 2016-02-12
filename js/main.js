@@ -66,7 +66,7 @@
                 function () {
                     errorHandler('Could not get participants.');
                 });
-        },2000);
+        }, 2000);
 
     });
 
