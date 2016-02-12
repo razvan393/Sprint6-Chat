@@ -69,13 +69,16 @@
 
     app.controller('ParticipantsCtrl', function ($scope, ParticipantsStore) {
         $scope.active = [];
-        $scope.participants = ParticipantsStore.getParticipants().then(
-            function (data) {
-                $scope.active = data;
-            },
-            function () {
-                errorHandler('Could not get participants.');
-            });
+        setInterval(function () {
+            $scope.participants = ParticipantsStore.getParticipants().then(
+                function (data) {
+                    $scope.active = data;
+                },
+                function () {
+                    errorHandler('Could not get participants.');
+                });
+        },2000);
+
     });
 
     app.controller('FormCtrl', function ($scope, MessagesStore, $cookies, CookieStore) {
