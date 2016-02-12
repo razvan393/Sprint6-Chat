@@ -16,23 +16,23 @@
 </head>
 <body ng-controller="LoginCtrl">
 <div class="container-main parent" ng-if="participantId">
-    <div class="wrapper container" ng-controller="IndexCtrl" scroll-glue >
-        <div class="head" ng-controller="ParticipantsCtrl">
+    <div class="head" ng-controller="ParticipantsCtrl">
             <span ng-repeat=" user in active">
                 <i class="fa fa-circle"></i>
                 {{ user.first_name }} {{ user.last_name }}
             </span>
-        </div>
+    </div>
+    <div class="wrapper container" ng-controller="IndexCtrl" scroll-glue >
         <div>
             <table>
                 <tbody>
                 <tr ng-repeat="message in messages track by $index">
-                    <td>
+                    <td class="picture">
                         <img ng-src="http://graph.facebook.com/{{ message.participant.fb_id }}/picture?type=small">
                     </td>
                     <td ng-model="message.body">
                         <p>{{ message.participant.first_name + " " + message.participant.last_name}}</p>
-                        <p>{{ message.body }}</p>
+                        <p>{{ message.body }} <div>{{message.date}}</div></p>
                     </td>
                 </tr>
                 </tbody>
@@ -45,7 +45,6 @@
                 <textarea class="col-md-10" type="text" class="form-control"
                           id="message" ng-enter="submit()" ng-model="form.body">
                 </textarea>
-                <!--<input class="col-md-10" type="text" class="form-control" id="message" ng-model="form.body">-->
             </div>
             <div class="clearfix"></div>
         </form>
@@ -56,7 +55,7 @@
         <a href="#" class="button facebook" ng-click="FBLogin()"><i class="fa fa-facebook-square fa-2x"></i>Sign in with
             Facebook</a>
     </div>
-        <a href="#" class="button logout" ng-click="FBLogout()"><i class="fa fa-sign-out fa-2x"></i>Sign out</a>
+        <a href="#" class="button logout" ng-click="FBLogout()"> <i class="fa fa-sign-out fa-2x"></i>Sign out</a>
 </div>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
