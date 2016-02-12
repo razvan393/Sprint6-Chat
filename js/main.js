@@ -34,7 +34,7 @@
             });
         };
         $scope.FBLogout = function () {
-            FB.logout(function (response) {
+            FB.logout(function () {
                 document.location.reload()
             });
         };
@@ -43,17 +43,6 @@
     app.controller('IndexCtrl', function ($scope, $cookies, MessagesStore, CookieStore) {
         $scope.messages = [];
         $scope.myId = CookieStore.getParticipantCookie($cookies.ParticipantId);
-        $scope.getTheMessage = MessagesStore.getMessages($scope.myId).then(
-            function (data) {
-                angular.forEach(data, function (item) {
-                    $scope.messages.push(item.body);
-                });
-
-                return $scope.messages;
-            },
-            function () {
-                errorHandler('Could not get messages history.');
-            });
 
         setInterval(function () {
             MessagesStore.getMessages($scope.myId).then(
