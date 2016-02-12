@@ -18,10 +18,6 @@ nav {
     text-align: center;
 }
 
-table {
-    width: 100%;
-}
-
 td {
     max-width: 50%;
     padding: 10px;
@@ -46,6 +42,9 @@ textarea {
     resize: none;
     outline: none;
     overflow: hidden;
+}
+p {
+    word-wrap: break-word;
 }
 /*================================= custom classes =============================*/
 
